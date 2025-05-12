@@ -120,7 +120,3 @@ This API can be deployed to Vercel using the following steps:
 2. Connect your repository to Vercel
 3. Set up the environment variables in the Vercel dashboard
 4. Deploy your application
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
