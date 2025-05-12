@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activity Booking API</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Activity Booking API</h1>
+      <p>A RESTful API for booking activities</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="api-intro">
+      <h2>API Overview</h2>
+      <p>This API provides endpoints for user authentication, listing activities, and booking activities.</p>
+      <div class="postman-link">
+        <a href="https://www.postman.com/your-collection-link" target="_blank" class="btn">
+          <span>View Postman Collection</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <section class="endpoints">
+      <h2>API Endpoints</h2>
+
+      <!-- Authentication Endpoints -->
+      <div class="endpoint-group">
+        <h3>Authentication</h3>
+        
+        <div class="endpoint">
+          <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/api/users/register</span>
+          </div>
+          <div class="endpoint-details">
+            <h4>Register User</h4>
+            <p>Create a new user account</p>
+            <div class="request-details">
+              <h5>Request Body:</h5>
+              <pre>{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "phone": "1234567890",
+  "password": "password123"
+}</pre>
+            </div>
+            <div class="response-details">
+              <h5>Response:</h5>
+              <pre>{
+  "message": "User registered successfully",
+  "token": "jwt_token_here",
+  "user": {
+    "id": "user_id",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "1234567890"
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="endpoint">
+          <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/api/users/login</span>
+          </div>
+          <div class="endpoint-details">
+            <h4>Login User</h4>
+            <p>Authenticate a user and get a JWT token</p>
+            <div class="request-details">
+              <h5>Request Body:</h5>
+              <pre>{
+  "email": "john@example.com",
+  "password": "password123"
+}</pre>
+            </div>
+            <div class="response-details">
+              <h5>Response:</h5>
+              <pre>{
+  "message": "Login successful",
+  "token": "jwt_token_here",
+  "user": {
+    "id": "user_id",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "1234567890"
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="endpoint">
+          <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/api/users/me</span>
+            <span class="auth-badge">Auth Required</span>
+          </div>
+          <div class="endpoint-details">
+            <h4>Get Current User</h4>
+            <p>Get the profile of the currently authenticated user</p>
+            <div class="request-details">
+              <h5>Headers:</h5>
+              <pre>Authorization: Bearer jwt_token_here</pre>
+            </div>
+            <div class="response-details">
+              <h5>Response:</h5>
+              <pre>{
+  "user": {
+    "id": "user_id",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "1234567890",
+    "created_at": "2023-01-01T00:00:00Z"
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Endpoints -->
+      <div class="endpoint-group">
+        <h3>Activities</h3>
+        
+        <div class="endpoint">
+          <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/api/activities</span>
+          </div>
+          <div class="endpoint-details">
+            <h4>List Activities</h4>
+            <p>Get a list of all available activities</p>
+            <div class="request-details">
+              <h5>Query Parameters:</h5>
+              <ul>
+                <li><code>type</code> - Filter by activity type</li>
+                <li><code>location</code> - Filter by location</li>
+                <li><code>date</code> - Filter by date</li>
+              </ul>
+            </div>
+            <div class="response-details">
+              <h5>Response:</h5>
+              <pre>{
+  "activities": [
+    {
+      "id": "activity_id",
+      "title": "Cricket Match",
+      "description": "T20 cricket match",
+      "location": "Central Stadium",
+      "date": "2023-06-15",
+      "time": "14:00:00",
+      "type": "sports"
+    },
+    {
+      "id": "activity_id",
+      "title": "Movie Night",
+      "description": "Premiere screening",
+      "location": "City Cinema",
+      "date": "2023-06-16",
+      "time": "19:00:00",
+      "type": "entertainment"
+    }
+  ]
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="endpoint">
+          <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/api/activities/:id</span>
+          </div>
+          <div class="endpoint-details">
+            <h4>Get Activity Details</h4>
+            <p>Get details of a specific activity</p>
+            <div class="request-details">
+              <h5>URL Parameters:</h5>
+              <ul>
+                <li><code>id</code> - Activity ID</li>
+              </ul>
+            </div>
+            <div class="response-details">
+              <h5>Response:</h5>
+              <pre>{
+  "activity": {
+    "id": "activity_id",
+    "title": "Cricket Match",
+    "description": "T20 cricket match",
+    "location": "Central Stadium",
+    "date": "2023-06-15",
+    "time": "14:00:00",
+    "type": "sports"
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="endpoint">
+          <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/api/activities/:id/book</span>
+            <span class="auth-badge">Auth Required</span>
+          </div>
+          <div class="endpoint-details">
+            <h4>Book Activity</h4>
+            <p>Book an activity for the authenticated user</p>
+            <div class="request-details">
+              <h5>URL Parameters:</h5>
+              <ul>
+                <li><code>id</code> - Activity ID</li>
+              </ul>
+              <h5>Headers:</h5>
+              <pre>Authorization: Bearer jwt_token_here</pre>
+            </div>
+            <div class="response-details">
+              <h5>Response:</h5>
+              <pre>{
+  "message": "Activity booked successfully",
+  "booking": {
+    "id": "booking_id",
+    "user_id": "user_id",
+    "activity_id": "activity_id",
+    "created_at": "2023-01-01T00:00:00Z"
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="endpoint">
+          <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/api/activities/user/bookings</span>
+            <span class="auth-badge">Auth Required</span>
+          </div>
+          <div class="endpoint-details">
+            <h4>Get User Bookings</h4>
+            <p>Get all bookings for the authenticated user</p>
+            <div class="request-details">
+              <h5>Headers:</h5>
+              <pre>Authorization: Bearer jwt_token_here</pre>
+            </div>
+            <div class="response-details">
+              <h5>Response:</h5>
+              <pre>{
+  "bookings": [
+    {
+      "id": "booking_id",
+      "created_at": "2023-01-01T00:00:00Z",
+      "activity": {
+        "id": "activity_id",
+        "title": "Cricket Match",
+        "description": "T20 cricket match",
+        "location": "Central Stadium",
+        "date": "2023-06-15",
+        "time": "14:00:00",
+        "type": "sports"
+      }
+    }
+  ]
+}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Activity Booking API. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
